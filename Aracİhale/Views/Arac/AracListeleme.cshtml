@@ -1,0 +1,186 @@
+﻿
+@{
+    ViewBag.Title = "AracListeleme";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 1;
+}
+
+@model AracIhaleDAL.VM.AracListeleVM
+
+@using (Html.BeginForm("FiltreliAracListele", "Arac", FormMethod.Post, new { @class = "bg-white rounded p-3" }))
+{
+
+    <div class="row">
+        <h4 style="color:black;">Kriterler</h4>
+
+        <div class="col-md-3 mb-3">
+            <label for="aracMarka" class="form-label">Araç Markası</label>
+            @Html.DropDownListFor(model => model.AracMarka, Model.AracMarkaList, "Seçiniz", new { @class = "form-control", id = "aracMarka" })
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="aracModel" class="form-label">Modeli</label>
+            @Html.DropDownListFor(model => model.AracModel, Model.AracModelList, "Seçiniz", new { @class = "form-control", id = "aracModel" })
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="aracTuru" class="form-label">Bireysel/Kurumsal</label>
+            @Html.DropDownListFor(model => model.BireyselKurumsal, Model.BireyselKurumsalList, "Seçiniz", new { @class = "form-control", id = "aracTuru" })
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="aracDurumu" class="form-label">Statüsü</label>
+            @Html.DropDownListFor(model => model.Statu, Model.StatuList, "Seçiniz", new { @class = "form-control", id = "aracStatu" })
+        </div>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Listele</button>
+        <button type="button" onclick="location.href='@Url.Action("AracListeleme", "Arac")'" class="btn btn-secondary ml-2">Sıfırla</button>
+
+    </div>
+  
+
+    <script>
+        function resetFormAndSubmit() {
+            // Formu sıfırla
+            var form = document.getElementById('filtreForm');
+            form.reset();
+
+            // DropDownListFor varsayılan değerleri seçmek için
+            var selects = form.getElementsByTagName('select');
+            for (var i = 0; i < selects.length; i++) {
+                selects[i].selectedIndex = 0;
+            }
+
+            // Tablodaki filtrelenmiş araç listesini temizle
+            var tbody = document.getElementById('araclarListesi');
+            var rows = tbody.getElementsByTagName('tr');
+            while (rows.length > 0) {
+                tbody.removeChild(rows[0]);
+            }
+
+            // Form submit işlemini gerçekleştir
+            form.submit();
+        }
+    </script>
+}
+<br />
+<table class="table">
+    <h4 style="color:dimgrey;">Araç Listesi</h4>
+    <thead>
+        <tr>
+            <th>Araç Sırası</th>
+            <th>Araç ID</th>
+            <th>Araç Markası</th>
+            <th>Modeli</th>
+            <th>Bireysel/Kurumsal</th>
+            <th>Statüsü</th>
+            <th>Kaydeden Kullanıcı</th>
+            <th>Kaydetme Zamanı</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AraclarList)
+        {
+            <tr>
+
+                <td>@sayac</td>
+                <td>@item.AracID</td>
+                <td>@(item.AracOzellik?.AracMarka?.MarkaAdi ?? "")</td>
+                <td>@(item.AracOzellik?.AracModel?.ModelAdi ?? "")</td>
+                <td>@(item.BireyselKurumsal?.Durum ?? "")</td>
+                <td>@(item.Statu?.StatuAdi ?? "")</td>
+                <td>@(item.Kullanici?.KullaniciAdi ?? "")</td>
+                <td>@item.Tarih@*.ToString() ?? "")*@</td>
+
+                <td>   <button type="button" class="btn btn-danger" onclick="confirmDelete('@item.AracID')">Sil</button></td>
+             
+                
+
+                <td>
+                    @using (Html.BeginForm("AracDuzenle", "Arac", FormMethod.Post, new { @class = "bg-white rounded p-3" }))
+                    {@Html.AntiForgeryToken()
+                    @Html.Hidden("AracID", item.AracID)
+                    <button class="btn btn-primary me-2">Düzenle</button>
+
+                }
+                </td>
+            </tr>
+            sayac++;
+        }
+    </tbody>
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Uyarı</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bu aracı silmek istediğinizden emin misiniz?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hayır</button>
+                    <form id="deleteModalForm">
+                        <button type="submit" class="btn btn-primary">Evet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</table>
+<br />
+<div class="row mt-12">
+    <div class="col-md-12 d-flex justify-content-end">
+        <a href="@Url.Action("AracDetayBilgisi")" class="btn btn-success me-2">Yeni</a>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    function ShowConfirm() {
+        var confirmation = confirm("Silmek istediğinize emin misiniz?");
+        if (confirmation) {
+            alert("Arac Silinmiştir.");
+        }
+        return confirmation;
+    };
+</script>
+<script>
+    function resetFormAndSubmit() {
+        // Formu sıfırla
+        var form = document.getElementById('filtreForm');
+        form.reset();
+
+        // DropDownListFor varsayılan değerleri seçmek için
+        var selects = form.getElementsByTagName('select');
+        for (var i = 0; i < selects.length; i++) {
+            selects[i].selectedIndex = 0;
+        }
+
+        // Tablodaki filtrelenmiş araç listesini temizle
+        var tbody = document.getElementById('araclarListesi');
+        var rows = tbody.getElementsByTagName('tr');
+        while (rows.length > 0) {
+            tbody.removeChild(rows[0]);
+        }
+
+        // Form submit işlemini gerçekleştir
+        form.submit();
+    }
+</script>
+<script>
+    function confirmDelete(id) {
+    var modal = new bootstrap.Modal(document.getElementById('deleteModal'), {});
+    modal.show();
+    document.getElementById('deleteModalForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        modal.hide();
+        window.location.href = '@Url.Action("AracSil", "Arac")?id=' + id;
+    });
+}
+
+
+</script>
+
+
+

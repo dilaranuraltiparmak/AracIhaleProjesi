@@ -1,0 +1,87 @@
+﻿@model AracIhaleDAL.VM.BireyselAracVM
+@{
+    ViewBag.Title = "BireyselArac";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("FiltreliBireyselArac", "BireyselArac",FormMethod.Post))
+{
+    <div class="row">
+        <h4 style="color:black;">Kriterler</h4>
+        <div class="col-md-3 mb-3">
+            @Html.LabelFor(m => m.AracMarka, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.AracMarka,Model.MarkaList, "Marka seçiniz", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 mb-3">
+            @Html.LabelFor(m => m.AracModel, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.AracModel,Model.ModelList, "Model seçiniz", new { @class = "form-control" })
+        </div>
+        <div class="col-md-3 mb-3">
+            @Html.LabelFor(m => m.Statusu, new { @class = "form-label" })
+            @Html.DropDownListFor(m => m.Statusu,Model.StatuList, "Durum seçiniz", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">Listele</button>
+    </div>
+}
+<br />
+<table class="table">
+    <h4 style="color:dimgrey;">Araç Listesi</h4>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Araç Markası</th>
+            <th>Modeli</th>
+            <th>Statüsü</th>
+            <th>Kaydeden Kullanıcı</th>
+            <th>Kaydetme Zamanı</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.AraclarListesi)
+        {
+            <tr>
+
+                <td>@item.AracID</td>
+                <td>@(item.AracOzellik?.AracMarka?.MarkaAdi ?? "")</td>
+                <td>@(item.AracOzellik?.AracModel?.ModelAdi ?? "")</td>
+            
+                <td>@(item.Statu?.StatuAdi ?? "")</td>
+                <td>@(Session["KullaniciAdi"] ?? "")</td>
+                <td>@(item.Tarih.ToString() ?? "")</td>
+                <td></td>
+                <td>
+                    @using (Html.BeginForm("BireyselAracSil", "BireyselArac", FormMethod.Post, new { @class = "bg-white rounded p-3" }))
+                    {@Html.AntiForgeryToken()
+                    @Html.Hidden("AracID", item.AracID)
+
+                    <button class="btn btn-danger">Sil</button>
+                }
+                </td>
+                <td>
+                    @using (Html.BeginForm("BireyselAracGuncelle", "BireyselArac", FormMethod.Post, new { @class = "bg-white rounded p-3" }))
+                    {@Html.AntiForgeryToken()
+                    @Html.Hidden("AracID", item.AracID)
+                    <button class="btn btn-primary me-2">Guncelle</button>
+
+                }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<div class="row mt-12">
+    <div class="col-md-12 d-flex justify-content-end">
+        <a href="@Url.Action("BireyselAracGuncelle")" class="btn btn-success me-2">
+            Güncelle
+        </a>
+        <button class="btn btn-danger">Sil</button>
+    </div>
+</div>
+
+
+
+

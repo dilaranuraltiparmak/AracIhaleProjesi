@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "YeniIhaleOlustur";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int index = 1;
+}
+
+
+
+@model AracIhaleDAL.VM.IhaleVM
+
+<div class="container mt-5">
+    <h4 class="mb-4">İhale Genel Bilgiler</h4>
+    @using (Html.BeginForm("YeniIhaleOlustur", "IhaleListele", FormMethod.Post))
+    {
+        <div class="row mb-3">
+            <div class="col">
+                <label for="plaka" class="form-label">Aracın Plakası</label>
+        @Html.DropDownListFor(model => model.AracID, new SelectList(Model.AraclarListesi, "AracID", "AracaPlaka"), "Seçiniz...", new { @class = "form-select", id = "plaka" })
+            </div>
+            <div class="col">
+                <label class="form-label">İhale Adı</label>
+                @Html.TextBoxFor(model => model.IhaleAdi, new { @class = "form-control", placeholder = "İhale Adı" })
+            </div>
+            <div class="col">
+                <label class="form-label">İhale Başlangıç Fiyatı</label>
+                @Html.TextBoxFor(model => model.IhaleBaslangicFiyati, new { @class = "form-control", placeholder = "İhale Başlangıç Fiyatı" })
+            </div>
+            <div class="col">
+                <label class="form-label">Minimum Alım Fiyatı</label>
+                @Html.TextBoxFor(model => model.MinimumAlimFiyati, new { @class = "form-control", placeholder = "Minimum Alım Fiyatı" })
+            </div>
+        </div>
+        <div class="row mb-3 ">
+            <div class="col-md-3">
+                <label for="bireyselkurumsal" class="form-label">Bireysel/Kurumsal</label>
+                @Html.DropDownListFor(model => model.BireyselKurumsalID, Model.BireyselKurumsalList, "Seçiniz...", new { @class = "form-select", id = "bireyselkurumsal" })
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Şirket Adı</label>
+                @Html.TextBoxFor(model => model.KurumsalSirketAdi, new { @class = "form-control", placeholder = "Şirket Adı" })
+            </div>
+            <div class="col-md-3">
+                <label for="ihaleStatusu" class="form-label">İhale Statüsü</label>
+                @Html.DropDownListFor(model => model.IhaleStatuID, Model.IhaleStatuList, "Seçiniz...", new { @class = "form-select", id = "ihaleStatusu" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="IhaleBaslangicTarihi" class="form-label">İhale Başlangıç Tarihi</label>
+                @Html.TextBoxFor(model => model.IhaleBaslangicTarihi, new { @class = "form-control", type = "date" })
+            </div>
+            <div class="col">
+                <label class="form-label">İhale Bitiş Tarihi</label>
+                @Html.TextBoxFor(model => model.IhaleBitisTarihi, new { @class = "form-control", type = "date" })
+            </div>
+            <div class="col">
+                <label class="form-label">İhale Başlangıç Saati</label>
+                @Html.TextBoxFor(model => model.IhaleBaslangicSaati, new { @class = "form-control", type = "time" })
+            </div>
+            <div class="col">
+                <label class="form-label">İhale Bitiş Saati</label>
+                @Html.TextBoxFor(model => model.IhaleBitisSaati, new { @class = "form-control", type = "time" })
+            </div>
+        </div>
+        <br />
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary mb-5">İhale Oluştur</button>
+        </div>
+    }
+</div>
+<br />
+<table class="table">
+    <h4 style="color:dimgrey;">İhale Araç Listesi</h4>
+    <thead>
+        <tr>
+            <th>İhale Araç Numarası</th>
+            <th>Araç Markası</th>
+            <th>Modeli</th>
+            <th>Bireysel/Kurumsal</th>
+            <th>Statüsü</th>
+            <th>Fiyatı</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.IhaleListesis)
+        {
+            <tr>
+                <th>@index</th>
+                <td>@item.MarkaAdi</td>
+                <td>@item.ModelAdi</td>
+                <th>@item.BireyselKurumsal.Durum</th>
+                <th>@item.IhaleStatu.IhaleStatuAdi</th>
+                <th>@item.IhaleBaslangicFiyati</th>
+                <th></th>
+            </tr>
+            index++;
+        }
+    </tbody>
+</table>
+<br />
+<div class="row mt-12">
+    <div class="col-md-12 d-flex justify-content-end">
+        <button class="btn btn-success me-2">Araç Ekle</button>
+        <button class="btn btn-primary me-2">Kaydet</button>
+    </div>
+</div>
+
+
+

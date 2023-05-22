@@ -1,0 +1,213 @@
+﻿
+@{
+    ViewBag.Title = "AracDetayBilgisi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Admin Panel";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var Liste = ViewBag.YakitTipiList as List<SelectListItem>;
+    var Liste2 = ViewBag.VitesTipiList as List<SelectListItem>;
+    var Liste3 = ViewBag.GovdeTipiList as List<SelectListItem>;
+    var Liste4 = ViewBag.RenkList as List<SelectListItem>;
+    var Liste5 = ViewBag.AracMarkaList as List<SelectListItem>;
+    var Liste6 = ViewBag.AracModelList as List<SelectListItem>;
+    var Liste7 = ViewBag.BireyselKurumsalList as List<SelectListItem>;
+    var Liste8 = ViewBag.StatuList as List<SelectListItem>;
+    var Liste9 = ViewBag.YilList as List<SelectListItem>;
+    var Liste10 = ViewBag.KurumsalList as List<SelectListItem>;
+    var Liste11 = ViewBag.GorselList as List<SelectListItem>;
+    var Liste12 = ViewBag.KmList;
+    var Liste13 = ViewBag.DonanimList as List<SelectListItem>;
+    var Liste14 = ViewBag.FiyatList as List<SelectListItem>;
+    var Liste15 = ViewBag.VersiyonList as List<SelectListItem>;
+    var Liste17 = ViewBag.KullaniciList as List<SelectListItem>;
+}
+
+
+@model AracIhaleDAL.VM.AracOzellikVM
+
+@using (Html.BeginForm("AracDetayBilgisi", "Arac", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+
+    <h4>Araç Detay Bilgileri</h4>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="aracMarka" class="form-label">Kullanici Seç</label>
+            @Html.DropDownListFor(model => model.KullaniciAdi, Liste17, "Seçiniz", new { @class = "form-control", id = "aracKullanici" })
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.AracaPlaka, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.AracaPlaka, new { @class = "form-control", id = "sirket-adi" })
+        </div>
+        <div class="col">
+            <label for="bireysel-kurumsal" class="form-label">Bireysel/Kurumsal</label>
+            @Html.DropDownListFor(model => model.BireyselKurumsalID, Liste7, new { @class = "form-control" })
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.KurumsalSirketAdi, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.KurumsalSirketAdi, new { @class = "form-control", id = "sirket-adi" })
+        </div>
+
+        <div class="col">
+            <label for="status" class="form-label">Statü</label>
+            @Html.DropDownListFor(model => model.StatuID, Liste8, new { @class = "form-control" })
+        </div>
+
+
+    </div>
+
+    <br />
+
+    <h4>Araç Detay Bilgileri</h4>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="arac-markasi" class="form-label">Araç Markası</label>
+            @Html.DropDownListFor(model => model.AracMarkaID, Liste5, new { @class = "form-control" })
+
+            @Html.Hidden("AracID", Model.AracID)
+            @Html.Hidden("IlanBilgisi", Model.IlanBilgisi)
+            @Html.Hidden("IlanAciklama", Model.IlanAciklama)
+            @*burada ilanbilgilerini hiddenfor ile tek tek kodla:ilanıd,ilanbilgi,ilanaçıklama*@
+
+            @*@Html.Hidden("İlanId",Model.I)*@
+        </div>
+        <div class="col">
+            <label for="arac-modeli" class="form-label">Araç Modeli</label>
+            @Html.DropDownListFor(model => model.AracModelID, Liste6, new { @class = "form-control" })
+            @*@Html.DropDownListFor(model => model.AracModelID, new SelectList(ViewBag.AracModelList, "AracModelID", "ModelAdi"), "Seçiniz", new { @class = "form-control" })*@
+        </div>
+        <div class="col">
+            <label for="govde-tipi" class="form-label">Gövde Tipi</label>
+
+            @Html.DropDownListFor(model => model.GovdeTipiID, Liste3, new { @class = "form-control" })
+
+        </div>
+        <div class="col">
+            <label for="yil" class="form-label">Yıl</label>
+
+            @Html.DropDownListFor(model => model.YilID, Liste9, new { @class = "form-control" })
+
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col">
+            <label for="yakit-tipi" class="form-label">Yakıt Tipi</label>
+
+
+            @Html.DropDownListFor(model => model.YakitTipiID, Liste, new { @class = "form-control" })
+
+
+        </div>
+        <div class="col">
+            <label for="vites-tipi" class="form-label">Vites Tipi</label>
+
+
+            @Html.DropDownListFor(model => model.VitesTipiID, Liste2, new { @class = "form-control" })
+
+            <div class="col">
+                @Html.LabelFor(model => model.AracFiyati, new { @class = "form-label" })
+                @Html.TextBoxFor(model => model.AracFiyati, new { @class = "form-control", id = "arac-fiyati" })
+            </div>
+
+
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.Versiyon, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Versiyon, new { @class = "form-control", id = "versiyon" })
+        </div>
+    </div>
+    <br />
+    @*<div class="col">
+            <label for="km-bilgisi" class="form-label">KM Bilgisi</label>
+            <input type="text" class="form-control" id="kmbilgisi" name="aracOzellikVM.KMBilgisi">
+        </div>*@
+    <div class="row mb-3">
+        <div class="col">
+            @Html.LabelFor(model => model.KMBilgisi, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.KMBilgisi, new { @class = "form-control", id = "kmbilgisi" })
+        </div>
+
+    </div>
+
+
+    <div class="row mb-3">
+        <div class="col">
+            <label for="renk" class="form-label">Renk</label>
+
+            @Html.DropDownListFor(model => model.RenkID, Liste4, new { @class = "form-control" })
+
+
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.Donanim, new { @class = "form-label" })
+            @Html.TextBoxFor(model => model.Donanim, new { @class = "form-control", id = "donanim" })
+        </div>
+
+        @*<div class="col">
+                <label for="donanim" class="form-label">Donanım</label>
+                <input type="text" class="form-control" id="donanim" name="aracOzellikVM.Donanim">
+            </div>*@
+   
+
+
+        <div class="col">
+            @Html.LabelFor(model => model.AracGorselID, new { @class = "form-label" })
+            <input type="file" class="form-control" id="gorseller" name="aracOzellikVM.AracGorselID" multiple>
+        </div>
+    </div>
+
+    @*<h4>Foto Ekle</h4>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="gorseller" class="form-label">Görseller</label>
+                <input type="file" class="form-control" id="gorseller" name="aracOzellikVM.AracGorselID" multiple>
+            </div>
+        </div>*@
+
+    <div class="mb-3">
+        <label for="aciklama" class="form-label">Açıklama</label>
+        <textarea class="form-control" id="aciklama" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        @Html.LabelFor(model => model.Tarih, new { @class = "form-label" })
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-outline-primary me-2">Hemen Al Satış</button>
+        <a href="@Url.Action("KomisyonVeNoterUcretleri", "AdminPanel")" type="button" class="btn btn-outline-warning me-2">
+            Komisyon
+        </a>
+        <a href="@Url.Action("KullaniciTanimlama", "Kullanici")" type="button" class="btn btn-outline-info me-2">
+            Alıcı Bilgileri
+        </a>
+        <button type="button" class="btn btn-outline-warning me-2">Araç Tarihçe</button>
+        @*<a href="@Url.Action("TramerBilgileri","Tramer")" type="button" class="btn btn-outline-success me-2">
+                Hasar Tramer Bilgileri
+            </a>*@
+        @*<a href="@Url.Action("İlanBilgileri","AdminPanel")" type="button" class="btn btn-outline-info me-2">
+                İlan Bilgileri
+            </a>*@
+        <div class="col-md-4 d-flex justify-content-end">
+            <input type="submit" name="name" value="TramerBilgisi" class="btn btn-primary" />
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <input type="submit" name="name" value="İlanBilgisi" class="btn btn-primary" />
+        </div>
+        <button type="submit" class="btn btn-outline-primary" onclick="fonk1()">Kaydet</button>
+    </div>
+        </div>
+
+    }
+    <script type="text/javascript">
+        function fonk1() {
+            window.alert('Araç başarıyla kaydedilmiştir');
+        }
+
+    </script>
+

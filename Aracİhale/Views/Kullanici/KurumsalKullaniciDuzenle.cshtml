@@ -1,0 +1,127 @@
+﻿
+
+@model AracIhaleCore.Entities.Kullanici
+@{
+        ViewBag.Title = "KurumsalKullaniciDuzenle";
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+
+    var bireyselKurumsalList = new SelectList(new[]
+    {
+        new { Value = 2, Text = "Kurumsal" }
+    }, "Value", "Text", Model.BireyselKurumsalID);
+
+    var aktifPasifList = new SelectList(new[]
+    {
+        new { Value = 1, Text = "Aktif" },
+        new { Value = 2, Text = "Pasif" }
+    }, "Value", "Text", Model.AktifPasifID);
+
+    var rolList = new SelectList(new[]
+    {
+        new { Value = 1, Text = "Admin" },
+        new { Value = 2, Text = "Kullanici" },
+        new { Value = 3, Text = "PlusAdmin" }
+    }, "Value", "Text", Model.RolID);
+
+    var firmaBilgisiList = new SelectList(new[]
+    {
+        new { Value = 1, Text = "Şahıs" },
+        new { Value = 2, Text = "Anonim" },
+        new { Value = 3, Text = "Limited" }
+    }, "Value", "Text", Model.FirmaBilgisiID);
+}
+
+<div class="container mt-5">
+    <h4>Kurumsal Kullanıcı Düzenle</h4>
+    @using (Html.BeginForm("KullaniciGuncelle", "KullaniciTanimlama", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.KullaniciID)
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="KurumsalBireysel">Kullanıcı Türü</label>
+                @Html.DropDownListFor(model => model.BireyselKurumsalID, bireyselKurumsalList, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="Rol">Rol</label>
+                @Html.DropDownListFor(model => model.RolID, rolList, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="il">İl</label>
+                @Html.TextBoxFor(model => model.KurumsalIl, new { @class = "form-control" })
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="AdSoyad">Ad Soyad</label>
+                @Html.TextBoxFor(model => model.Ad, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="Eposta">E-posta</label>
+                @Html.TextBoxFor(model => model.Mail, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="ilce">İlçe</label>
+                @Html.TextBoxFor(model => model.KurumsalIlce, new { @class = "form-control" })
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="KullaniciAdi">Kullanıcı Adı</label>
+                @Html.TextBoxFor(model => model.KullaniciAdi, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="Telefon">Telefon</label>
+                @Html.TextBoxFor(model => model.Telefon, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="adres">Adres</label>
+                @Html.TextBoxFor(model => model.KurumsalAdres, new { @class = "form-control", rows = "3" })
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="Sifre">Şifre</label>
+                @Html.PasswordFor(model => model.Sifre, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="Durum">Durum</label>
+                @Html.DropDownListFor(model => model.AktifPasifID, aktifPasifList, new { @class = "form-control" })
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="firmaAdi">Firma Adı</label>
+                @Html.TextBoxFor(model => model.FirmaAdi, new { @class = "form-control" })
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label for="firmaBilgisi">Firma Bilgisi</label>
+                    @Html.DropDownListFor(model => model.FirmaBilgisiID, firmaBilgisiList, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="d-grid gap-2 mt-4 d-flex justify-content-end">
+            <input type="submit" name="name" class="btn btn-success" value="Kullanıcıyı Güncelle" />
+            <a href="@Url.Action("KullaniciTanimlama")" class="btn btn-primary">Vazgeç</a>
+        </div>
+    }
+</div>
+
+
+

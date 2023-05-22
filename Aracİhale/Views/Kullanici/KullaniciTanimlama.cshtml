@@ -1,0 +1,146 @@
+﻿
+
+@{
+    ViewBag.Title = "KullaniciTanimlama";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int sayac = 1;
+}
+
+
+@model List<AracIhaleCore.Entities.Kullanici>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+
+<div class="container mt-5">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Kullanıcı Adı</th>
+                <th scope="col">Bireysel/Kurumsal</th>
+                <th scope="col">Ad Soyad</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">E-posta</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Durum</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var kullanici in Model)
+            {
+                <tr>
+                    <th scope="row">@sayac</th>
+                    <td>@kullanici.KullaniciAdi</td>
+                    <td>@(kullanici.BireyselKurumsalID==1 ? "Bireysel" : "Kurumsal")</td>
+                    <td>@kullanici.Telefon</td>
+                    <td>@kullanici.Mail</td>
+                    <td>@(kullanici.AktifPasifID == 1 ? "Aktif" : "Pasif")</td>
+                    <td>@(kullanici.RolID == 1 ? "Admin" : "Kullanıcı")</td>
+                    <td>
+                        @using (Html.BeginForm("KullaniciSil", "Kullanici", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("KullaniciID", kullanici.KullaniciID)
+                            <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("KullaniciDuzenle", "Kullanici", new { KullaniciID = kullanici.KullaniciID })'">Düzenle</button>
+                            <button type="submit" class="btn btn-danger" onclick="return ShowConfirm();">Sil</button>
+                        }
+                    </td>
+                </tr>
+                sayac++;
+            }
+        </tbody>
+
+    </table>
+    <br />
+    <div class="d-grid gap-2 mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kullaniciEkleModal">Yeni Kullanıcı Ekle</button>
+
+
+
+    </div>
+</div>
+@using (Html.BeginForm("KullaniciEkle", "Kullanici", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal fade" id="kullaniciEkleModal" tabindex="-1" aria-labelledby="kullaniciEkleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color:black;" id="kullaniciEkleModalLabel">Kullanıcı Tanımlama</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="kullaniciTipi" class="form-label">Bireysel - Kurumsal</label>
+                        
+                     
+                                <select class="form-select" name="BireyselKurumsalID" id="BK">
+                                    <option value="" disabled selected>Rol Seçiniz</option>
+                                    <option value="1">Bireysel</option>
+                                    <option value="2">Kurumsal</option>
+                                </select>
+                            </div>
+               
+                        <div class="mb-3">
+                            <label for="kullaniciAdi" class="form-label">Kullanıcı Adı</label>
+                            <input type="text" class="form-control" id="kullaniciAdi" name="KullaniciAdi" placeholder="Kullanıcı Adı">
+                        </div>
+                        <div class="mb-3">
+                            <label for="adSoyad" class="form-label">Ad Soyad</label>
+                            <input type="text" class="form-control" id="adSoyad" name="AdSoyad" placeholder="Ad Soyad">
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefon" class="form-label">Telefon Bilgisi</label>
+                            <input type="text" class="form-control" id="telefon" name="Telefon" placeholder="Telefon Numarası">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mail" class="form-label">Mail Bilgisi</label>
+                            <input type="email" class="form-control" id="mail" name="Mail" placeholder="E-posta Adresi">
+                        </div>
+                        <div class="mb-3">
+                            <label for="aktifpasif" class="form-label">Aktiflik Durumu</label>
+                            <select class="form-select" name="AktifPasifID" id="aktifpasif">
+                                <option value="" disabled selected>Aktiflik Durumu</option>
+                                <option value="1">Aktif</option>
+                                <option value="2">Pasif</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="sifre" class="form-label">Şifre</label>
+                            <input type="password" class="form-control" id="sifre" name="Sifre" placeholder="Şifre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rol" class="form-label">Rolü</label>
+                            <select class="form-select" name="RolID" id="rol">
+                                <option value="" disabled selected>Rol Seçiniz</option>
+                                <option value="1">Admin</option>
+                                <option value="2">Kullanıcı</option>
+                                <option value="3">SuperAdmin</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                    <button type="submit" class="btn btn-primary">Kullanıcıyı Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+
+    function ShowConfirm() {
+        var confirmation = confirm("Kullanici silinecek.Emin misiniz?");
+        if (confirmation) {
+            alert("Kullanici Silinmiştir.");
+        }
+        return confirmation;
+    };
+
+</script>
+

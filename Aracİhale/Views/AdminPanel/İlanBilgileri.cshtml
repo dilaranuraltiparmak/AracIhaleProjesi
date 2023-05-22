@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "İlanBilgileri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model AracIhaleDAL.VM.AracOzellikVM
+
+<div class="container mt-4">
+   
+        <h2>İlan Bilgileri</h2>
+        @using(Html.BeginForm("İlanBilgileri", "AdminPanel", FormMethod.Post))
+        {@Html.AntiForgeryToken()
+            @*@Html.Hidden("AracID",Model.AracID)*@
+            @Html.HiddenFor(a=>a.AracID)
+            @Html.HiddenFor(a=>a.BireyselKurumsalID)
+            @Html.HiddenFor(a=>a.AracMarkaID)
+            @Html.HiddenFor(a=>a.AracModelID)
+            @Html.HiddenFor(a=>a.VitesTipiID)
+            @Html.HiddenFor(a=>a.YakitTipiID)
+            @Html.HiddenFor(a=>a.AracGorselID)
+            @Html.HiddenFor(a=>a.Durum)
+            @Html.HiddenFor(a=>a.Donanim)
+            @Html.HiddenFor(a=>a.RenkID)
+            @Html.HiddenFor(a=>a.GovdeTipiID)
+            @Html.HiddenFor(a=>a.KurumsalSirketAdi)
+            @Html.HiddenFor(a=>a.StatuID)
+            @Html.HiddenFor(a=>a.Versiyon)
+       
+
+        <div class="mb-3">
+            @Html.LabelFor(m => m.IlanBilgisi, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.IlanBilgisi, new { @class = "form-control", @id = "ilan-basligi", placeholder = "İlan Başlığı" })
+        </div>
+        <div class="mb-3">
+            @Html.LabelFor(m => m.IlanAciklama, new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.IlanAciklama, new { @class = "form-control", @id = "ilan-aciklamasi", rows = 3, placeholder = "İlan Açıklaması" })
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <input type="submit" name="name" value="Kaydet" />
+        </div>
+    }
+   
+</div>
+

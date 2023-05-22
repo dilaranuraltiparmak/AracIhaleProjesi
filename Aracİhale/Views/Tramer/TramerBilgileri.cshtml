@@ -1,0 +1,113 @@
+﻿@model AracIhaleDAL.VM.AracOzellikVM
+@{
+    ViewBag.Title = "TramerBilgileri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Tramer Bilgileri</h2>
+    <div class="mb-3">
+       @Html.LabelFor(m=>m.ToplamTramerTutari,new  {@class="form-label"  })
+       @Html.TextBoxFor(m=>m.ToplamTramerTutari,new  { @class="form-control",placeholder="Toplam Tramer tutarini giriniz",id="toplamTramerTutari"})
+    </div>
+    @*<table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Parça</th>
+                <th scope="col">Orijinal</th>
+                <th scope="col">Boyalı</th>
+                <th scope="col">Değişmiş</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Sağ Arka Çamurluk</td>
+                <td>@Html.CheckBoxFor(m => m.SagArkaCamurluk.Orijinal)</td>
+                <td>@Html.CheckBoxFor(m => m.SagArkaCamurluk.Boyalı)</td>
+                <td>@Html.CheckBoxFor(m => m.SagArkaCamurluk.Degismis)</td>
+            </tr>
+            <tr>
+                <td>Arka Kaput</td>
+                <td>@Html.CheckBoxFor(m => m.ArkaKaput.Orijinal)</td>
+                <td>@Html.CheckBoxFor(m => m.ArkaKaput.Boyalı)</td>
+                <td>@Html.CheckBoxFor(m => m.ArkaKaput.Degismis)</td>
+            </tr>
+            <tr>
+                <td>Sol Arka Çamurluk</td>
+                <td>@Html.CheckBoxFor(m => m.SolArkaCamurluk.Orijinal)</td>
+                <td>@Html.CheckBoxFor(m => m.SolArkaCamurluk.Boyalı)</td>
+                <td>@Html.CheckBoxFor(m => m.SolArkaCamurluk.Degismis)</td>
+            </tr>
+            <tr>
+                <td>Sağ Arka Kapı</td>
+                <td>@Html.CheckBoxFor(m => m.SagArkaKapi.Orijinal)</td>
+                <td>@Html.CheckBoxFor(m => m.SagArkaKapi.Boyalı)</td>
+                <td>@Html.CheckBoxFor(m => m.SagArkaKapi.Degismis)</td>
+            </tr>
+            <tr>
+                <td>Sağ Ön Kapı</td>
+                <td>@Html.CheckBoxFor(m => m.SagOnKapi.Orijinal)</td>
+                <td>@Html.CheckBoxFor(m => m.SagOnKapi.Boyalı)</td>
+                <td>@Html.CheckBoxFor(m => m.SagOnKapi.Degismis)</td>
+            </tr>
+            <tr>
+                <td>Tavan</td>
+                <td>@Html.CheckBoxFor(m => m.Tavan.Orijinal)</td>
+                <td>@Html.CheckBoxFor(m => m.Tavan.Boyalı)</td>
+                <td>@Html.CheckBoxFor(m => m.Tavan.Degismis)</td>
+            </tr>
+
+            <tr>
+                <td>Sol Arka Kapı</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Sol Ön Kapı</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Sağ Ön Çamurluk</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Motor Kaputu</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Sol Ön Çamurluk</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Ön Tampon</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>Arka Tampon</td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+                <td><input type="checkbox"></td>
+            </tr>*@
+
+            <!-- Diğer satırları benzer şekilde oluşturun -->
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-end">
+        <a href="@Url.Action("AracDetayBilgisi","Arac")" class="btn btn-primary">Kaydet</a>
+    </div>
+</div>
+
+
+
+

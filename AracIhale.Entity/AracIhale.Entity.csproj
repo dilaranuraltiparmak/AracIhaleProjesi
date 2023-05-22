@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E6470DE9-C2A1-4DDD-8554-47CAE4D48982}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AracIhale.Entity</RootNamespace>
+    <AssemblyName>AracIhale.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Entities\AktifPasif.cs" />
+    <Compile Include="Entities\AracAliciBilgi.cs" />
+    <Compile Include="Entities\AracGorsel.cs" />
+    <Compile Include="Entities\Araclar.cs" />
+    <Compile Include="Entities\AracMarka.cs" />
+    <Compile Include="Entities\AracModel.cs" />
+    <Compile Include="Entities\AracOzellik.cs" />
+    <Compile Include="Entities\AracParcaBilgi.cs" />
+    <Compile Include="Entities\AracParcaDurumu.cs" />
+    <Compile Include="Entities\AracTarihce.cs" />
+    <Compile Include="Entities\BireyselAracTeklif.cs" />
+    <Compile Include="Entities\BireyselKurumsal.cs" />
+    <Compile Include="Entities\Giri.cs" />
+    <Compile Include="Entities\GovdeTipi.cs" />
+    <Compile Include="Entities\IhaleArac.cs" />
+    <Compile Include="Entities\IhaleListesi.cs" />
+    <Compile Include="Entities\IhaleStatu.cs" />
+    <Compile Include="Entities\IlanBilgi.cs" />
+    <Compile Include="Entities\Kullanici.cs" />
+    <Compile Include="Entities\KurumsalUyeOnay.cs" />
+    <Compile Include="Entities\Menu.cs" />
+    <Compile Include="Entities\Model1.cs" />
+    <Compile Include="Entities\OdemeBilgisi.cs" />
+    <Compile Include="Entities\PaketParametre.cs" />
+    <Compile Include="Entities\PaketTanimlama.cs" />
+    <Compile Include="Entities\Renk.cs" />
+    <Compile Include="Entities\Rol.cs" />
+    <Compile Include="Entities\RolMenu.cs" />
+    <Compile Include="Entities\Statu.cs" />
+    <Compile Include="Entities\sysdiagram.cs" />
+    <Compile Include="Entities\TramerTutari.cs" />
+    <Compile Include="Entities\VitesTipi.cs" />
+    <Compile Include="Entities\YakitTipi.cs" />
+    <Compile Include="Entities\Yetki.cs" />
+    <Compile Include="Entities\Yil.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

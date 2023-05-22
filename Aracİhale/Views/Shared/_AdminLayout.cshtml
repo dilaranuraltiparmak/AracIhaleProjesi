@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Arac İhale Projesi</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- site icon -->
+    <link rel="icon" href="/Content/pluto-1.0.0/images/fevicon.png" type="image/png" />
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/css/bootstrap.min.css" />
+    <!-- site css -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/style.css" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/css/responsive.css" />
+    <!-- color css -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/css/colors.css" />
+    <!-- select bootstrap -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/css/bootstrap-select.css" />
+    <!-- scrollbar css -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/css/perfect-scrollbar.css" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="/Content/pluto-1.0.0/css/custom.css" />
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="dashboard dashboard_1">
+    <div class="full_container">
+        <div class="inner_container">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar_blog_1">
+                    <div class="sidebar-header">
+                        <div class="logo_section">
+                            <a href="index.html"><img class="logo_icon img-responsive" src="~/Content/pluto-1.0.0/images/logo/logo_icon.png" alt="#" /></a>
+                        </div>
+                    </div>
+                    <div class="sidebar_user_info">
+                        <div class="icon_setting"></div>
+                        <div class="user_profle_side">
+                            @{
+                                var userName = (string)Session["UserName"];
+                                var roles = (List<string>)Session["Roles"];
+                                string role = "";
+                                if (roles != null && roles.Count > 0)
+                                {
+                                    role = roles[0]; // Kullanıcının ilk rolü
+                                }
+                                if (!string.IsNullOrEmpty(userName))
+                                {
+                                    <button type="button" class="btn btn-primary">
+                                        Giriş yapan kullanıcının adı:
+                                        <br />@userName (@role)
+                                    </button>
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar_blog_2">
+
+                    <ul class="list-unstyled components">
+                        @{
+                            var menuNames = (List<string>)Session["MenuNames"];
+                            if (menuNames != null)
+                            {
+                                foreach (var menuName in menuNames)
+                                {
+                                    switch (menuName)
+                                    {
+                                        case "Arac Listeleme":
+                                            // Arac Listeleme işlemleri
+                                            <li class="active">
+                                                <ul class="collapse list-unstyled" id="dashboard"> </ul>
+                                                <a href="/Arac/AracListeleme">@menuName<i class="fa fa-list yellow_color"></i></a>
+
+                                            </li>
+
+                                            break;
+                                        case "Arac Detay Bilgisi":
+                                            // Arac Detay Bilgisi işlemleri
+                                            <li><a href="/Arac/AracDetayBilgisi"><i class="fa fa-clock-o orange_color"></i>@menuName</a></li>
+
+
+
+                                            break;
+                                        case "Kurumsal Üye":
+                                            // Kurumsal Üye işlemleri
+                                            <li>
+                                                <a href="/AdminPanel/KurumsalUyeOnay">
+                                                    <i class="fa fa-diamond purple_color"></i> @menuName
+                                                </a>
+                                                <ul class="collapse list-unstyled" id="element">
+                                                    <li><a href="general_elements.html">> <span>General Elements</span></a></li>
+                                                    <li><a href="media_gallery.html">> <span>Media Gallery</span></a></li>
+                                                    <li><a href="icons.html">> <span>Icons</span></a></li>
+                                                    <li><a href="invoice.html">> <span>Invoice</span></a></li>
+                                                </ul>
+                                            </li>
+
+
+
+                                            break;
+                                        case "İhale Listeleme":
+                                            <li><a href="/IhaleListele/IhaleListeleme"><i class="fa fa-table purple_color2"></i>@menuName </a></li>
+
+                                            break;
+                                        case "Kullanıcı Tanımla":
+                                            <li>
+                                                <a href="/Kullanici/KullaniciTanimlama"><i class="fa fa-user red_color"></i> @menuName</a>
+                                            </li>
+                          
+
+
+                                            break;
+                                        case "Stok Yönetimi":
+                                            <li><a href="/Stok/StokYonetimi"><i class="fa fa-briefcase blue1_color"></i>@menuName </a></li>
+                                            break;
+                                        case "İhaledeki Araçlar":
+                                            <li><a href="/IhaleyeCikanAraclar/IhaleyeCikanAraclar"><i class="fa fa-car orange_color"></i> @menuName</a></li>
+                                            break;
+                                        case "Bireysel Arac":
+                                            <li><a href="/BireyselArac/BireyselArac"><i class="fa fa-table purple_color2"></i> @menuName</a></li>
+
+                                            break;
+                                        case "Komisyon & Noter":
+                                            <li class="active">
+                                                <a href="/AdminPanel/KomisyonVeNoterUcretleri"><i class="fa fa-clone yellow_color"></i> @menuName</a>
+
+                                            </li>
+                                            break;
+                                        case "Paket Tanımla":
+                                            <li>
+                                                <a href="/AdminPanel/PaketTanimlama">
+                                                    <i class="fa fa-barcode purple_color2"></i> @menuName
+                                                </a>
+                                            </li>
+                                            break;
+                                        case "Raporlar":
+
+                                            <li class="nav-item dropdown">
+                                                <a href="/AdminPanel/Rapor" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
+                                                    <i class="fa fa-dashboard yellow_color"></i> @menuName
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="/Rapor/Rapor">Rapor</a></li>
+                                                    <li><a href="/Rapor/OrtaZorlukRapor">Orta Zorluk Rapor</a></li>
+                                                    <li><a href="/Rapor/KompleksRapor">Kompleks Rapor</a></li>
+                                                </ul>
+                                            </li>
+
+
+                                            break;
+                                    }
+                                }
+                                    }
+                        }
+
+                        @*<li><a href="/AdminPanel/Rapor1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-dashboard yellow_color"></i><span></span></a>
+
+        <li>
+            <a href="/AdminPanel/Rapor1"><span></span></a>
+        </li>
+        <li>
+            <a href="/AdminPanel/OrtaZorlukRapor"><span></span></a>
+        </li>
+        <li>
+            <a href="/AdminPanel/KompleksRapor"><span></span></a>
+        </li>*@
+
+
+
+                        <li><a href="@Url.Action("CikisYap","Giris")"><i class="fa fa-stop yellow_color"></i> <span>Çıkış Yap</span></a></li>
+                    </ul>
+
+</div>
+        
+        
+
+                
+</div>
+            
+            <!-- end sidebar -->
+            <!-- right content -->
+            <div id="content">
+                <!-- topbar -->
+                <div class="topbar">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="full">
+                            <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
+                            <div class="logo_section">
+                                <a href="index.html"><img class="img-responsive" src="~/Content/pluto-1.0.0/images/logo/logo_black.png" alt="#" /></a>
+                            </div>
+                            <div class="right_topbar">
+                                <div class="icon_info">
+                                    <ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <!-- end topbar -->
+                <!-- dashboard inner -->
+                <!-- dashboard inner -->
+                <div class=" midde_cont">
+                    @RenderBody()
+                    <!-- footer -->
+                    <div class="container-fluid">
+                        <div class="footer">
+                            <p>
+                                Copyright © 2018 Designed by html.design. All rights reserved.<br><br>
+                                Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end dashboard inner -->
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<!-- jQuery -->
+<script src="/Content/pluto-1.0.0/js/jquery.min.js"></script>
+<script src="/Content/pluto-1.0.0/js/popper.min.js"></script>
+<script src="/Content/pluto-1.0.0/js/bootstrap.min.js"></script>
+<!-- wow animation -->
+<script src="/Content/pluto-1.0.0/js/animate.js"></script>
+<!-- select country -->
+<script src="/Content/pluto-1.0.0/js/bootstrap-select.js"></script>
+<!-- owl carousel -->
+<script src="/Content/pluto-1.0.0/js/owl.carousel.js"></script>
+<!-- chart js -->
+<script src="/Content/pluto-1.0.0/js/Chart.min.js"></script>
+<script src="/Content/pluto-1.0.0/js/Chart.bundle.min.js"></script>
+<script src="/Content/pluto-1.0.0/js/utils.js"></script>
+<script src="/Content/pluto-1.0.0/js/analyser.js"></script>
+<!-- nice scrollbar -->
+<script src="/Content/pluto-1.0.0/js/perfect-scrollbar.min.js"></script>
+<script>var ps = new PerfectScrollbar('#sidebar');</script>
+<!-- custom js -->
+<script src="/Content/pluto-1.0.0/js/custom.js"></script>
+<script src="/Content/pluto-1.0.0/js/chart_custom_style1.js"></script> 
+
+   

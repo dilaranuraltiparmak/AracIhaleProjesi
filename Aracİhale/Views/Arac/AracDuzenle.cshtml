@@ -1,0 +1,61 @@
+﻿
+@model AracIhaleDAL.VM.AracDuzenleVM
+
+@{
+    ViewBag.Title = "AracDuzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+
+}
+
+
+
+<div class="container mt-5">
+    <h4>Arac Düzenle</h4>
+    @using (Html.BeginForm("AracGuncelle", "Arac", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.AracID)
+
+
+
+
+
+
+
+        <div class="form-group">
+
+            @Html.DropDownListFor(model => model.AracMarkaID, Model.AracMarkaList,  new { @class = "form-control" })
+
+
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.DropDownListFor(model => model.AracModelID, Model.AracModelList, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+
+            @Html.DropDownListFor(model => model.BireyselKurumsalID, Model.BireyselKurumsalList, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+
+            @Html.DropDownListFor(model => model.StatuID, Model.StatuList, new { @class = "form-control", id = "aracStatu" })
+        </div>
+
+
+
+
+        <div class="d-grid gap-2 mt-4 d-flex justify-content-end">
+            <input type="submit" name="name" value="Guncelle" />
+
+            <a href="@Url.Action("AracListeleme")" class="btn btn-primary">Vazgeç</a>
+        </div>
+    }
+</div>
+
+
+
